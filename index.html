@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedido de Namoro 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #ff4d6d;
+      font-family: "Lobster", cursive;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 48px;
+      transition: opacity 1s ease;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: #fff;
+      color: #ff4d6d;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    button:hover {
+      background: #ffe0ec;
+    }
+
+    .pergunta {
+      margin-top: 20px;
+      display: none;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .pergunta button {
+      margin: 10px;
+    }
+
+    /* ❤️ Coração clássico */
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(-45deg);
+      animation: floatUp 6s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: 10px;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(-45deg); opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(-45deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="titulo">Eu queria te falar um negócio</h1>
+  <button id="primeiroBotao" onclick="mostrarSegundaPergunta()">Clique Aqui!</button>
+
+  <div class="pergunta" id="pergunta">
+    <h2>Você quer namorar comigo? 😘</h2>
+    <button onclick="responder('sim')">Sim</button>
+    <button id="botaoNao">Não</button>
+  </div>
+
+  <script>
+
+    function mostrarSegundaPergunta() {
+      document.getElementById("titulo").style.opacity = "0";
+      document.getElementById("primeiroBotao").style.opacity = "0";
+
+      setTimeout(() => {
+        document.getElementById("titulo").style.display = "none";
+        document.getElementById("primeiroBotao").style.display = "none";
+
+        const pergunta = document.getElementById("pergunta");
+        pergunta.style.display = "block";
+        setTimeout(() => pergunta.style.opacity = "1", 100);
+      }, 1000);
+    }
+
+    function responder(opcao) {
+      if(opcao === 'sim') {
+        window.location.href = "https://www.youtube.com/watch?v=izGwDsrQ1eQ&list=RDizGwDsrQ1eQ&start_radio=1"; // vídeo "Sim"
+      }
+    }
+
+    // Botão "Não" foge no PC e celular
+    const botaoNao = document.getElementById("botaoNao");
+
+    function fugir() {
+      const x = Math.random() * (window.innerWidth - botaoNao.offsetWidth);
+      const y = Math.random() * (window.innerHeight - botaoNao.offsetHeight);
+      botaoNao.style.position = "absolute";
+      botaoNao.style.left = x + "px";
+      botaoNao.style.top = y + "px";
+    }
+
+    // PC (mouse)
+    botaoNao.addEventListener("mouseover", fugir);
+
+    // Celular (toque)
+    botaoNao.addEventListener("touchstart", fugir);
+
+    // Criar corações animados
+    function criarCoracao() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(criarCoracao, 500);
+  </script>
+</body>
+</html>
